@@ -1,0 +1,90 @@
+{% load static i18n %}<!DOCTYPE html>
+{% get_current_language as LANGUAGE_CODE %}
+<html lang="{{ LANGUAGE_CODE }}">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <title>{% block title %} Class Captain {% endblock title %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Class Captain is an innovative classroom management software designed to empower educators. It streamlines tasks, organizes schedules, and enhances communication in educational settings. With its user-friendly interface, teachers can efficiently manage their classrooms, ensuring a productive and harmonious learning environment."
+    />
+    <meta name="author" content="Md Manzer Alam and Team" />
+    <link rel="icon" href="{% static 'images/favicons/favicon.ico' %}" />
+    {% block css %}
+    <!-- Your stuff: Third-party CSS libraries go here -->
+    <!-- This file stores project-specific CSS -->
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=Raleway:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/tailwind.css' %}" />
+    {% endblock css %}
+    <!-- Le javascript
+    ================================================== -->
+    {# Placed at the top of the document so pages load faster with defer #} 
+    {% block javascript %}
+
+       <!-- Your stuff: Third-party javascript libraries go here -->
+
+    <!-- place project specific Javascript in this file -->
+    <script  type="module"
+  src="{% static 'js/vendor/tw-elements.umd.min.js' %}"
+  type="text/javascript"></script>
+    {% endblock javascript %}
+  </head>
+  <body class="bg-gradient-to-tl from-zinc-50 to-indigo-200 min-h-screen text-gray-900 w-screen overflow-x-hidden font-secondary">
+    {% include 'snippets/navbar.html' %}
+    <div class="h-[calc(100vh-3.5rem)]" id="container-body">
+      {% if messages %}
+        <ul class="container mx-auto flex flex-col gap-2 mt-16 absolute px-3 top-0 left-0 right-0 z-10" id="msg-element">
+          {% for message in messages %}
+          {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
+              <li class="error">
+          {% endif %}
+  
+          {% if message.level == DEFAULT_MESSAGE_LEVELS.INFO %}
+              <li class="info">
+          {% endif %}
+  
+          {% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+              <li class="success">
+          {% endif %}
+          <div class="text">
+              {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
+                  &nbsp;Important:
+              {% endif %}
+              {{ message }}
+          </div>
+          <div class="my-auto grid place-items-center">
+              <button class="close-msg-btn" onclick="closeMsg(this)"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="#fff" class="w-6 h-6 my-auto">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M9.75 9.75l4.5 4.5m0-4.5l-4.5 4.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  </button>
+          </div>
+          </li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+      {% block content %}
+      {% endblock content %}
+    </div>
+    <!-- /container -->
+    {% block modal %}
+    {% endblock modal %}
+    {% block inline_javascript %}
+      {% comment %}
+    Script tags with only code, no src (defer by default). To run
+    with a "defer" so that you run inline code:
+    <script>
+      window.addEventListener('DOMContentLoaded', () => {
+        /* Run whatever you want */
+      });
+    </script>
+      {% endcomment %}
+    {% endblock inline_javascript %}
+    <script src="{% static 'js/base.js' %}"></script>
+
+  </body>
+  </html>

@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+
+{% load static %}
+{% load socialaccount %}
+
+{% block title %}
+  Profile | {{user.name}}
+{% endblock title %}
+{% block head %}
+  <!-- CSS files -->
+  <!-- <link rel="stylesheet" href="{% static 'base/css/home.css' %}" /> -->
+{% endblock head %}
+{% block content %}
+<div class="max-w-[98vw] lg:container mx-auto">
+  <section class=" w-full grid place-items-center">
+      <div class="grid place-items-center pt-16 w-full">
+          <div class="rounded-md w-full max-w-5xl flex flex-col justify-center px-3">
+              <div class="grid place-items-end py-4 border border-zinc-600 shadow-lg shadow-zinc-800 rounded px-3 bg-center bg-cover bg-no-repeat origin-bottom w-full max-h-[200px] max-w-xl lg:max-w-screen-2xl mx-auto" style="background-image: linear-gradient(135deg, rgba(85, 74, 101, 0.604), rgba(34, 5, 5, 0.148)), url('{% static 'images/base/128.webp' %}');">
+                  <div class="flex flex-row w-full justify-between align-bottom text-zinc-200">
+                      {% if profile_img %}
+                      <img src="{{profile_img}}" alt="google profile image" class="w-16 h-16 lg:w-24 lg:h-24 rounded-full border border-zinc-50 relative bottom-0">
+                      {% else %}
+                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-16 h-16 lg:w-24 lg:h-24 rounded-full border border-zinc-50 relative bottom-0">
+                          <path stroke-linecap="round" stroke-linejoin="round" d="M17.982 18.725A7.488 7.488 0 0012 15.75a7.488 7.488 0 00-5.982 2.975m11.963 0a9 9 0 10-11.963 0m11.963 0A8.966 8.966 0 0112 21a8.966 8.966 0 01-5.982-2.275M15 9.75a3 3 0 11-6 0 3 3 0 016 0z" />
+                        </svg>
+                        
+                      {% endif %}
+                      <li class="list-none flex justify-end flex-col text-right font-raleway">
+                          <h2 class="text-xl lg:text-3xl text-transparent bg-gradient-to-r from-zinc-100 via-zinc-400 to-zinc-200 bg-clip-text font-bold uppercase h-fit tracking-wider">{{request.user.name}}</h2>
+                          <h3 class=" font-bold lowercase h-fit ">{{request.user.email}}</h3>
+                          <h3 class=" font-bold uppercase h-fit ">
+                              {% if is_admin %}
+                              Admin
+                              {% elif is_professor %}
+                              Professor
+                              {% elif is_student %}
+                              Student
+                              {% else %}
+                              Registration Not Complete.
+                              {% endif %}
+                          </h3>
+                          <h3 class=" font-bold lowercase h-fit  font-quicksand">{{learner.phone}}</h3>
+                      </li>
+                  </div>
+              </div>
+              <div class="flex w-full text-center gap-3 container mx-auto font-bold mt-4 list-none">
+                  <li class="text-xl uppercase underline"><a href="#">Edit Profile</a></li>
+              </div>
+              <div class="flex text-center mt-4 flex-col gap-3 container mx-auto w-full">
+                  <div>
+                      <h2 class="text-xl font-raleway font-bold">Progress</h2>
+                      <h3 class="text-sm underline underline-offset-4"><a href="#">See all topics</a></h3>
+                  </div>
+                  <div class="w-full">
+                      <ul class="w-full flex flex-wrap justify-center align-middle gap-4">
+                      </ul>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </section>
+</div>
+{% endblock %}

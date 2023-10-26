@@ -1,0 +1,139 @@
+{% load static %}
+{% load markdown_deux_tags %}
+
+{% if not study.heroImage %}
+  <li class="project"
+      style="background-image: linear-gradient(90deg, rgba(45, 0, 48, 0.684), rgba(0, 11, 68, 0.84)), url('{% static 'images/base/ai-3d.jpg' %}')">
+    <h2 class="text-lg lg:text-xl font-bold font-gugi">{{ study.title }}</h2>
+    <p>{{ study.description|markdown }}</p>
+    <ul class="flex flex-row gap-3 w-full flex-wrap justify-between my-2">
+      <ul class="flex flex-row gap-4 justify-center align-middle">
+        {% if study.views %}
+          <a class="text-lg font-black font-ubuntu-mono uppercase group relative inline-flex gap-3 justify-center align-middle w-fit"
+             href="#">
+            <svg xmlns="http://www.w3.org/2000/svg"
+                 fill="none"
+                 viewBox="0 0 24 24"
+                 stroke-width="1.5"
+                 stroke="currentColor"
+                 class="w-6 h-6 my-auto">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" />
+              <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+            </svg>
+            <h3 class="my-auto">{{ study.views }}</h3>
+            <span class="tooltip">Views</span>
+          </a>
+        {% else %}
+          <a class="text-lg font-black font-ubuntu-mono uppercase group relative inline-flex gap-3 justify-center align-middle w-fit"
+             href="#">
+            <svg xmlns="http://www.w3.org/2000/svg"
+                 fill="none"
+                 viewBox="0 0 24 24"
+                 stroke-width="1.5"
+                 stroke="currentColor"
+                 class="w-6 h-6 my-auto">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M3.98 8.223A10.477 10.477 0 001.934 12C3.226 16.338 7.244 19.5 12 19.5c.993 0 1.953-.138 2.863-.395M6.228 6.228A10.45 10.45 0 0112 4.5c4.756 0 8.773 3.162 10.065 7.498a10.523 10.523 0 01-4.293 5.774M6.228 6.228L3 3m3.228 3.228l3.65 3.65m7.894 7.894L21 21m-3.228-3.228l-3.65-3.65m0 0a3 3 0 10-4.243-4.243m4.242 4.242L9.88 9.88" />
+            </svg>
+            <span class="tooltip">Private</span>
+          </a>
+        {% endif %}
+        {% if study.linkToCode %}
+          <a class="text-lg font-black font-ubuntu-mono uppercase group relative inline-flex gap-3 justify-center align-middle w-fit"
+             href="{{ study.linkToCode }}">
+            <svg class="w-6 h-6 text-white my-auto"
+                 aria-hidden="true"
+                 xmlns="http://www.w3.org/2000/svg"
+                 fill="currentColor"
+                 viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M10 .333A9.911 9.911 0 0 0 6.866 19.65c.5.092.678-.215.678-.477 0-.237-.01-1.017-.014-1.845-2.757.6-3.338-1.169-3.338-1.169a2.627 2.627 0 0 0-1.1-1.451c-.9-.615.07-.6.07-.6a2.084 2.084 0 0 1 1.518 1.021 2.11 2.11 0 0 0 2.884.823c.044-.503.268-.973.63-1.325-2.2-.25-4.516-1.1-4.516-4.9A3.832 3.832 0 0 1 4.7 7.068a3.56 3.56 0 0 1 .095-2.623s.832-.266 2.726 1.016a9.409 9.409 0 0 1 4.962 0c1.89-1.282 2.717-1.016 2.717-1.016.366.83.402 1.768.1 2.623a3.827 3.827 0 0 1 1.02 2.659c0 3.807-2.319 4.644-4.525 4.889a2.366 2.366 0 0 1 .673 1.834c0 1.326-.012 2.394-.012 2.72 0 .263.18.572.681.475A9.911 9.911 0 0 0 10 .333Z" clip-rule="evenodd" />
+            </svg>
+          </a>
+        {% endif %}
+        {% if study.linkToDeployment %}
+          <a class="text-lg font-black font-ubuntu-mono uppercase group relative inline-flex gap-3 justify-center align-middle w-fit"
+             href="{{ study.linkToDeployment }}">
+            <svg class="w-6 h-6 text-white my-auto"
+                 aria-hidden="true"
+                 xmlns="http://www.w3.org/2000/svg"
+                 fill="none"
+                 viewBox="0 0 19 19">
+              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.013 7.962a3.519 3.519 0 0 0-4.975 0l-3.554 3.554a3.518 3.518 0 0 0 4.975 4.975l.461-.46m-.461-4.515a3.518 3.518 0 0 0 4.975 0l3.553-3.554a3.518 3.518 0 0 0-4.974-4.975L10.3 3.7" />
+            </svg>
+          </a>
+        {% endif %}
+      </ul>
+      <a href="{% url 'works:detail' study.id %}" class="tag-2">View Details</a>
+    </ul>
+  </li>
+{% else %}
+  <li class="project"
+      style="background-image: linear-gradient(90deg, rgba(45, 0, 48, 0.684), rgba(0, 11, 68, 0.84)), url('{{ study.heroImage.url }}')">
+    <h2 class="text-lg lg:text-xl font-bold font-gugi">{{ study.title }}</h2>
+    <p>{{ study.description|markdown }}</p>
+    <!-- <ul class="flex flex-row w-full flex-wrap gap-3 my-2">
+                <a class="tag" href="#">Flask</a>
+                <a class="tag" href="#">Python</a>
+                <a class="tag" href="#">Javascript</a>
+                <a class="tag" href="#">Flask</a>
+                <a class="tag" href="#">Python</a>
+              </ul> -->
+    <ul class="flex flex-row gap-3 w-full justify-between flex-wrap my-2">
+      <ul class="flex flex-row gap-4 justify-center align-middle">
+        {% if study.views %}
+          <a class="text-lg font-black font-ubuntu-mono uppercase group relative inline-flex gap-3 justify-center align-middle w-fit"
+             href="#">
+            <svg xmlns="http://www.w3.org/2000/svg"
+                 fill="none"
+                 viewBox="0 0 24 24"
+                 stroke-width="1.5"
+                 stroke="currentColor"
+                 class="w-6 h-6 my-auto">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" />
+              <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+            </svg>
+            <h3 class="my-auto">{{ study.views }}</h3>
+            <span class="tooltip">Views</span>
+          </a>
+        {% else %}
+          <a class="text-lg font-black font-ubuntu-mono uppercase group relative inline-block gap-3 justify-center align-middle w-fit"
+             href="#">
+            <svg xmlns="http://www.w3.org/2000/svg"
+                 fill="none"
+                 viewBox="0 0 24 24"
+                 stroke-width="1.5"
+                 stroke="currentColor"
+                 class="w-6 h-6 my-auto">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M3.98 8.223A10.477 10.477 0 001.934 12C3.226 16.338 7.244 19.5 12 19.5c.993 0 1.953-.138 2.863-.395M6.228 6.228A10.45 10.45 0 0112 4.5c4.756 0 8.773 3.162 10.065 7.498a10.523 10.523 0 01-4.293 5.774M6.228 6.228L3 3m3.228 3.228l3.65 3.65m7.894 7.894L21 21m-3.228-3.228l-3.65-3.65m0 0a3 3 0 10-4.243-4.243m4.242 4.242L9.88 9.88" />
+            </svg>
+            <span class="tooltip">Private</span>
+          </a>
+        {% endif %}
+        {% if study.linkToCode %}
+          <a class="text-lg font-black font-ubuntu-mono uppercase group relative inline-flex gap-3 justify-center align-middle w-fit"
+             href="{{ study.linkToCode }}">
+            <svg class="w-6 h-6 text-white my-auto"
+                 aria-hidden="true"
+                 xmlns="http://www.w3.org/2000/svg"
+                 fill="currentColor"
+                 viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M10 .333A9.911 9.911 0 0 0 6.866 19.65c.5.092.678-.215.678-.477 0-.237-.01-1.017-.014-1.845-2.757.6-3.338-1.169-3.338-1.169a2.627 2.627 0 0 0-1.1-1.451c-.9-.615.07-.6.07-.6a2.084 2.084 0 0 1 1.518 1.021 2.11 2.11 0 0 0 2.884.823c.044-.503.268-.973.63-1.325-2.2-.25-4.516-1.1-4.516-4.9A3.832 3.832 0 0 1 4.7 7.068a3.56 3.56 0 0 1 .095-2.623s.832-.266 2.726 1.016a9.409 9.409 0 0 1 4.962 0c1.89-1.282 2.717-1.016 2.717-1.016.366.83.402 1.768.1 2.623a3.827 3.827 0 0 1 1.02 2.659c0 3.807-2.319 4.644-4.525 4.889a2.366 2.366 0 0 1 .673 1.834c0 1.326-.012 2.394-.012 2.72 0 .263.18.572.681.475A9.911 9.911 0 0 0 10 .333Z" clip-rule="evenodd" />
+            </svg>
+          </a>
+        {% endif %}
+        {% if study.linkToDeployment %}
+          <a class="text-lg font-black font-ubuntu-mono uppercase group relative inline-flex gap-3 justify-center align-middle w-fit"
+             href="{{ study.linkToDeployment }}">
+            <svg class="w-6 h-6 text-white my-auto"
+                 aria-hidden="true"
+                 xmlns="http://www.w3.org/2000/svg"
+                 fill="none"
+                 viewBox="0 0 19 19">
+              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.013 7.962a3.519 3.519 0 0 0-4.975 0l-3.554 3.554a3.518 3.518 0 0 0 4.975 4.975l.461-.46m-.461-4.515a3.518 3.518 0 0 0 4.975 0l3.553-3.554a3.518 3.518 0 0 0-4.974-4.975L10.3 3.7" />
+            </svg>
+          </a>
+        {% endif %}
+      </ul>
+      <a href="{% url 'works:detail' study.id %}" class="tag-2">View Details</a>
+    </ul>
+  </li>
+{% endif %}

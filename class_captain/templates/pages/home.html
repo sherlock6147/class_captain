@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% load static %}
+{% load socialaccount %}
+
+{% block title %}
+  Home
+{% endblock title %}
+{% block head %}
+  <!-- CSS files -->
+  <!-- <link rel="stylesheet" href="{% static 'base/css/home.css' %}" /> -->
+{% endblock head %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/base/home.css' %}" />
+<header style="background-image: linear-gradient(90deg, rgba(17, 4, 57, 0.749), rgba(7, 151, 81, 0.741)), url('{% static 'images/base/ttten.svg' %}')"
+          class="w-screen h-full grid place-items-center text-zinc-50">
+    <div class="bg-blend-multiply backdrop-brightness-50 backdrop-blur-sm w-full h-full">
+      <div class=" max-w-screen-2xl h-full flex flex-col justify-center px-6 mx-auto">
+        <div class="flex flex-col gap-2 lg:gap-4 text-zinc-50 max-w-screen-lg mx-auto">
+          <div class="grid grid-cols-1 mx-auto w-full container">
+            <div class="w-full mx-auto px-3">
+              <h1 class=" text-2xl lg:text-5xl font-primary font-normal tracking-wider">Unlock Classroom Management Excellence</h1>
+            </div>
+          </div>
+          <div class="container mx-auto px-3 text-zinc-50 font-normal">
+            <div class="flex flex-col container justify-center align-middle gap-2 ">
+              <div class="text-lg lg:text-3xl font-bold">
+                <h1>Empower Your Institution with Class Captain</h1>
+              </div>
+              <div class="text-base lg:text-2xl font-light">
+                <h2>Class Captain: Streamline classroom management, prevent double bookings, and take control of resources. Join us for efficient education!</h2>
+              </div>
+              <ul class="flex flex-row flex-wrap lg:flex-row gap-4 justify-start my-2 uppercase ">
+                <form action="{% provider_login_url 'google' %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit" class="tag-2">Join Now!</button>
+                </form>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+  </header>
+{% endblock %}

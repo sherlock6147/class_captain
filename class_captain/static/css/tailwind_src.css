@@ -1,0 +1,49 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.error{
+    @apply bg-gradient-to-r from-orange-500 to-amber-500 text-white px-4 py-2 rounded flex flex-row justify-between align-middle;
+}
+.info{
+    @apply bg-gradient-to-r from-blue-500 to-purple-500 text-white px-4 py-2 rounded flex flex-row justify-between align-middle;
+}
+.success{
+    @apply bg-gradient-to-r from-teal-500 to-emerald-500 text-white px-4 py-2 rounded flex flex-row justify-between align-middle;
+}
+
+
+.tag-2 {
+    @apply px-5 py-1 rounded-sm hover:bg-fuchsia-100/10 font-bold uppercase bg-slate-900/90 border border-fuchsia-50/20 text-sm lg:text-base w-fit;
+}
+
+.tag {
+    @apply py-1 px-6 hover:bg-zinc-50/20 hover:border-white transition-all duration-100 ease-in-out border border-zinc-400 rounded;
+}
+
+.form-background{
+    @apply bg-zinc-700 text-zinc-50 w-full mx-auto p-4 rounded flex flex-col justify-center gap-3 max-w-lg;
+}
+
+.form-background > h2{
+    @apply text-xl uppercase;
+}
+
+.form-ele{
+    @apply flex flex-col gap-3;
+}
+
+.form-ele label{
+    @apply font-bold uppercase my-auto mr-auto;
+}
+
+.form-ele fieldset{
+    @apply flex flex-row gap-3 align-middle;
+}
+.form-input{
+    @apply w-full bg-zinc-900 duration-300 hover:bg-zinc-900 focus:bg-zinc-900 outline-none rounded-md px-3 py-1 text-base;
+}
+
+.form-select{
+    @apply max-w-[200px] w-full drop-shadow-md bg-zinc-900 duration-300 hover:bg-zinc-900 focus:bg-zinc-900 outline-none rounded-md;
+}

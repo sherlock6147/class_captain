@@ -1,0 +1,72 @@
+.animation{
+    height: 100%;
+    position: relative;
+    animation: move 12s linear infinite;
+}
+@keyframes move {
+    0%{
+        background-position: 0vw 10vh;
+    }
+    100%{
+        background-position: 0vw -10vh;
+    }
+}
+
+.stagger-card{
+    opacity: 0;
+    transform: translateX(-100%);
+    filter: blur(5px);
+    transition: all 1s;
+}
+.stagger-card:nth-child(2){
+    transition-delay: 150ms;
+}
+
+.stagger-card:nth-child(3){
+    transition-delay: 150ms;
+}
+.stagger-card:nth-child(4){
+    transition-delay: 0ms;
+}
+
+.stagger-card:nth-child(5){
+    transition-delay: 150ms;
+}
+.stagger-card:nth-child(6){
+    transition-delay: 150ms;
+}
+
+.show{
+    opacity: 1;
+    filter: blur(0px);
+    transform: translateX(0);
+
+}
+
+html::-webkit-scrollbar {
+    width: 10px;
+  }
+
+html::-webkit-scrollbar-track {
+    background: rgb(30, 28, 28);
+    border-radius: 10px;
+}
+
+html::-webkit-scrollbar-thumb {
+    background: rgb(52, 52, 52);
+    border-radius: 10px;
+  }
+
+html::-webkit-scrollbar-thumb:hover {
+    background: rgb(100, 100, 100);
+    border-radius: 10px;
+  }
+
+html::-webkit-scrollbar-thumb:active {
+    background: rgb(68, 68, 68);
+    border-radius: 10px;
+  }
+
+#container-body{
+    padding: 0;
+}
