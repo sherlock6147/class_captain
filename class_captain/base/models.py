@@ -26,7 +26,7 @@ class Student(models.Model):
     department = models.ForeignKey(Department, on_delete=models.CASCADE)
 
     def __str__(self) -> str:
-        return 'Student: '+ self.user.name + '| '+self.department.name
+        return 'Student: '+ self.user.name + '| '+self.department.name + '|' +self.reg
 
 class Professor(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -41,7 +41,7 @@ class SecretToken(models.Model):
         ('Student','Student'),
         ('Professor','Professor'),
     )
-    code = models.CharField(max_length=6, default=generate_random_code)
+    code = models.CharField(max_length=6, default=generate_random_code, unique=True)
     created_on = models.DateTimeField(auto_now_add=True)
     expiry = models.DateTimeField()
     token_type = models.CharField(max_length=20, choices=TOKEN_TYPES)

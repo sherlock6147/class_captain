@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% load static %}
+{% load socialaccount %}
+
+{% block title %}
+Edit Student Registration
+{% endblock title %}
+{% block head %}
+  <!-- CSS files -->
+  <!-- <link rel="stylesheet" href="{% static 'base/css/home.css' %}" /> -->
+{% endblock head %}
+{% block content %}
+<div class="h-full w-full max-w-[90vw] lg:container mx-auto pt-4 lg:pt-12 ">
+    <div class="grid place-items-center w-full">
+        <div class="form-background">
+            <h2>Edit Student Registration</h2>
+            <form action="" method="post" class="form-ele">
+                {% csrf_token %}
+                <fieldset>
+                    <label for="dept_id">Department:</label>
+                    <select name="dept_id" id="dept_id" class="max-w-[300px] w-full form-select" required>
+                        {% for dept in departments %}
+                            {% if dept.name == student.department.name %}
+                            <option value="{{dept.id}}" selected> {{dept.name}}</option>
+                            {% else %}
+                            <option value="{{dept.id}}">{{dept.name}}</option>
+                            {% endif %}
+                        
+                        {% endfor %}
+                    </select>
+                </fieldset>
+                <fieldset>
+                    <label for="mobile">Mobile:</label>
+                    <input type="text" required class="form-input max-w-[200px]" name="mobile" value="{{student.mobile}}">
+                </fieldset>
+                <fieldset>
+                    <label for="roll">Roll Number:</label>
+                    <input type="text" required class="form-input max-w-[200px]" name="roll" value="{{student.roll}}">
+                </fieldset>
+                <fieldset>
+                    <label for="reg">Registration Number:</label>
+                    <input type="text" required class="form-input max-w-[200px]" name="reg" value="{{student.reg}}">
+                </fieldset>
+                <input type="submit" value="Save" class="w-fit px-4 py-1 mx-auto font-ubuntu-mono uppercase text-xl font-bold bg-zinc-900 rounded" name="save">
+            </form>
+        </div>
+
+    </div>
+</div>
+<script src="{% static 'js/table.js' %}"></script>
+{% endblock %}

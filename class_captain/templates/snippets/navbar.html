@@ -12,10 +12,10 @@
         <li data-te-nav-item-ref class="my-auto">
           <a
             class="flex flex-row gap-2 align-middle py-1 pr-2 transition duration-150 ease-in-out hover:text-blue-300 lg:px-2"
-            href="#!"
+            href="{% url 'base:home' %}"
             >
             <img src="{% static 'images/favicons/favicon.ico' %}" alt="" class="w-8 h-8 my-auto">
-            <h4 class="font-primary text-xl uppercase my-auto">Class
+            <h4 class="font-primary text-xl uppercase my-auto hidden sm:block">Class
               Captain</h4>
             </a
           >
@@ -96,19 +96,19 @@
                   <div>
                     <p
                       class="block w-full border-b border-neutral-200 px-6 py-2 font-black uppercase text-neutral-900">
-                      Explit voluptas
+                      Classrooms
                     </p>
                     <a
-                      href="#!"
+                      href="{% url 'classroom:list_all' %}"
                       aria-current="true"
                       class="block w-full border-b border-neutral-200 px-6 py-2"
-                      >Perspiciatis quo</a
+                      >All Classrooms</a
                     >
                     <a
-                      href="#!"
+                      href="{% url 'classroom:add' %}"
                       aria-current="true"
                       class="block w-full border-b border-neutral-200 px-6 py-2"
-                      >Cras justo odio</a
+                      >Add Classroom</a
                     >
                     <a
                       href="#!"
@@ -126,31 +126,31 @@
                   <div>
                     <p
                       class="block w-full border-b border-neutral-200 px-6 py-2 font-black uppercase text-neutral-900">
-                      Iste quaerato
+                      Access Management
                     </p>
                     <a
                       href="#!"
                       aria-current="true"
                       class="block w-full border-b border-neutral-200 px-6 py-2"
-                      >Cras justo odio</a
+                      >Professor Access Management(PAM)</a
                     >
                     <a
                       href="#!"
                       aria-current="true"
                       class="block w-full border-b border-neutral-200 px-6 py-2"
-                      >Est iure</a
+                      >Add PAM</a
                     >
                     <a
                       href="#!"
                       aria-current="true"
                       class="block w-full border-b border-neutral-200 px-6 py-2"
-                      >Praesentium</a
+                      >Student Access Management(SAM)</a
                     >
                     <a
                       href="#!"
                       aria-current="true"
                       class="block w-full px-6 py-2 "
-                      >Laboriosam</a
+                      >Add SAM</a
                     >
                   </div>
                   <div>

@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+{% load static %}
+{% load socialaccount %}
+
+{% block title %}
+Add Classroom
+{% endblock title %}
+{% block head %}
+  <!-- CSS files -->
+  <!-- <link rel="stylesheet" href="{% static 'base/css/home.css' %}" /> -->
+{% endblock head %}
+{% block content %}
+<div class="h-full w-full max-w-[90vw] lg:container mx-auto pt-4 lg:pt-12 ">
+    <div class="grid place-items-center w-full">
+        <div class="form-background">
+            <h2>Classroom Addition</h2>
+            <form action="" method="post" class="form-ele">
+                {% csrf_token %}
+                <fieldset>
+                    <label for="dept_id">Building:</label>
+                    <select name="building_id" id="dept_id" class="max-w-[300px] w-full form-select" required>
+                        {% for building in buildings %}
+                        <option value="{{building.id}}">{{building.name}}</option>
+                        {% endfor %}
+                    </select>
+                </fieldset>
+                <fieldset>
+                    <label for="name">Name:</label>
+                    <input type="text" required class="form-input max-w-[200px]" name="name" placeholder="A123">
+                </fieldset>
+
+                <fieldset>
+                    <label for="floor">Floor:</label>
+                    <input type="text" required class="form-input max-w-[200px]" name="floor" placeholder="2nd">
+                </fieldset>
+                <fieldset>
+                    <label for="seating_capacity">Seating Capacity:</label>
+                    <input type="number" required class="form-input max-w-[200px]" name="seating_capacity" placeholder="50">
+                </fieldset>
+                <fieldset>
+                    <label for="seating_capacity">Is Whiteboard Available:</label>
+                    <input type="checkbox"  class="form-checkbox p-2 rounded my-auto" value="whiteboard" name="options" placeholder="50">
+                </fieldset>
+                <fieldset>
+                    <label for="seating_capacity">Is Projector Available:</label>
+                    <input type="checkbox"  class="form-checkbox p-2 rounded my-auto" value="projector" name="options" placeholder="50">
+                </fieldset>
+
+                <fieldset>
+                    <label for="seating_capacity">Is Blackboard Available:</label>
+                    <input type="checkbox"  class="form-checkbox p-2 rounded my-auto" value="blackboard" name="options" placeholder="50">
+                </fieldset>
+                <input type="submit" value="Save" class="w-fit px-4 py-1 mx-auto font-ubuntu-mono uppercase text-xl font-bold bg-zinc-900 rounded" name="save">
+            </form>
+        </div>
+
+    </div>
+</div>
+<script src="{% static 'js/table.js' %}"></script>
+{% endblock %}

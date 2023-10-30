@@ -6,6 +6,7 @@ from django.views import defaults as default_views
 from django.views.generic import TemplateView
 
 urlpatterns = [
+    path("classrooom/", include('classroom.urls'), name="classroom"),
     path("", include('base.urls'), name="base"),
     # Django Admin, use {% url 'admin:index' %}
     path(settings.ADMIN_URL, admin.site.urls),

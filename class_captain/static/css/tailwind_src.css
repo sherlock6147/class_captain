@@ -17,6 +17,10 @@
     @apply px-5 py-1 rounded-sm hover:bg-fuchsia-100/10 font-bold uppercase bg-slate-900/90 border border-fuchsia-50/20 text-sm lg:text-base w-fit;
 }
 
+.tag-3 {
+    @apply px-5 py-1 rounded hover:scale-105 font-bold uppercase bg-slate-900/90 border border-fuchsia-50/20 text-sm lg:text-base w-fit;
+}
+
 .tag {
     @apply py-1 px-6 hover:bg-zinc-50/20 hover:border-white transition-all duration-100 ease-in-out border border-zinc-400 rounded;
 }

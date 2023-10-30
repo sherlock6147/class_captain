@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% load static %}
+{% load socialaccount %}
+
+{% block title %}
+Student Registration
+{% endblock title %}
+{% block head %}
+  <!-- CSS files -->
+  <!-- <link rel="stylesheet" href="{% static 'base/css/home.css' %}" /> -->
+{% endblock head %}
+{% block content %}
+<div class="h-full w-full max-w-[90vw] lg:container mx-auto pt-4 lg:pt-12 ">
+    <div class="grid place-items-center w-full">
+        <div class="form-background">
+            <h2>Student Registration</h2>
+            <form action="" method="post" class="form-ele">
+                {% csrf_token %}
+                <fieldset>
+                    <label for="dept_id">Department:</label>
+                    <select name="dept_id" id="dept_id" class="max-w-[300px] w-full form-select" required>
+                        {% for dept in departments %}
+                        <option value="{{dept.id}}">{{dept.name}}</option>
+                        {% endfor %}
+                    </select>
+                </fieldset>
+                <fieldset>
+                    <label for="mobile">Mobile:</label>
+                    <input type="text" required class="form-input max-w-[200px]" name="mobile" placeholder="Phone:(Ex: 9900912345)">
+                </fieldset>
+                <fieldset>
+                    <label for="roll">Roll Number:</label>
+                    <input type="text" required class="form-input max-w-[200px]" name="roll" placeholder="XXDEXXXX">
+                </fieldset>
+                <fieldset>
+                    <label for="reg">Registration Number:</label>
+                    <input type="text" required class="form-input max-w-[200px]" name="reg" placeholder="XXUXXXXX">
+                </fieldset>
+                <fieldset>
+                    <label for="secret">Token:</label>
+                    <input type="password" required class="form-input max-w-[200px]" name="secret" placeholder="XXXXXX (6 digit)">
+                </fieldset>
+                <input type="submit" value="Save" class="w-fit px-4 py-1 mx-auto font-ubuntu-mono uppercase text-xl font-bold bg-zinc-900 rounded" name="save">
+            </form>
+        </div>
+
+    </div>
+</div>
+<script src="{% static 'js/table.js' %}"></script>
+{% endblock %}
