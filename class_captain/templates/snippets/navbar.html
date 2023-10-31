@@ -66,31 +66,19 @@
                   <div>
                     <p
                       class="block w-full border-b border-neutral-200 px-6 py-2 font-black uppercase text-neutral-900">
-                      Lorem ipsum
+                      Manage Bookings
                     </p>
                     <a
                       href="#!"
                       aria-current="true"
                       class="block w-full border-b border-neutral-200 px-6 py-2"
-                      >Dolor sit</a
+                      >Suggest Booking</a
                     >
                     <a
                       href="#!"
                       aria-current="true"
                       class="block w-full border-b border-neutral-200 px-6 py-2"
-                      >Amet consectetur</a
-                    >
-                    <a
-                      href="#!"
-                      aria-current="true"
-                      class="block w-full border-b border-neutral-200 px-6 py-2"
-                      >Cras justo odio</a
-                    >
-                    <a
-                      href="#!"
-                      aria-current="true"
-                      class="block w-full px-6 py-2 "
-                      >Adipisicing elit</a
+                      >Create Booking</a
                     >
                   </div>
                   <div>
@@ -102,20 +90,24 @@
                       href="{% url 'classroom:list_all' %}"
                       aria-current="true"
                       class="block w-full border-b border-neutral-200 px-6 py-2"
-                      >All Classrooms</a
+                      >Classrooms Available</a
                     >
+                    {% if is_admin %}
                     <a
                       href="{% url 'classroom:add' %}"
                       aria-current="true"
                       class="block w-full border-b border-neutral-200 px-6 py-2"
                       >Add Classroom</a
                     >
+                    {% endif %}
                   </div>
+                  {% if is_admin or is_professor %}
                   <div>
                     <p
                       class="block w-full border-b border-neutral-200 px-6 py-2 font-black uppercase text-neutral-900">
                       Access Management
                     </p>
+                    {% if is_admin %}
                     <a
                       href="{% url 'access:list_PAG' %}"
                       aria-current="true"
@@ -128,6 +120,7 @@
                       class="block w-full border-b border-neutral-200 px-6 py-2"
                       >Add PAG</a
                     >
+                    {% endif %}
                     <a
                       href="{% url 'access:list_SAG' %}"
                       aria-current="true"
@@ -141,10 +134,12 @@
                       >Add SAG</a
                     >
                   </div>
+                  {% endif %}
+                  {% if is_admin or is_professor %}
                   <div>
                     <p
                       class="block w-full border-b border-neutral-200 px-6 py-2 font-black uppercase text-neutral-900">
-                      Admin
+                      Token Management
                     </p>
                     <a
                       href="{% url 'base:view_secret_tokens' %}"
@@ -159,6 +154,7 @@
                       >Add Secret Token</a
                     >
                   </div>
+                  {% endif %}
                 </div>
               </div>
             </div>

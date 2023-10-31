@@ -67,7 +67,7 @@ def view_secret_tokens(request):
     if is_professor or is_admin:
         if not is_admin:
             messages.info(request, 'Can only create Student-level access tokens.')
-            context['tokens'] = SecretToken.objects.filter(token_type=SecretToken.TOKEN_TYPES['Student']).order_by('-created_on')
+            context['tokens'] = SecretToken.objects.filter(token_type='Student').order_by('-created_on')
         else:
             context['tokens'] = SecretToken.objects.all().order_by('-created_on')
     else:
