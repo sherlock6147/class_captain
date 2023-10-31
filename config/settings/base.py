@@ -84,6 +84,7 @@ LOCAL_APPS = [
     "base",
     "classroom",
     "access_management",
+    "booking",
     # Your stuff: custom apps go here
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
