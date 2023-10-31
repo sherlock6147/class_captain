@@ -6,6 +6,7 @@ from django.views import defaults as default_views
 from django.views.generic import TemplateView
 
 urlpatterns = [
+    path("booking/",include('booking.urls',namespace="booking")),
     path("classrooom/", include('classroom.urls'), name="classroom"),
     path("access/", include('access_management.urls'), name="access"),
     path("", include('base.urls'), name="base"),

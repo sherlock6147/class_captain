@@ -5,6 +5,14 @@ from classroom.models import(
     Building,
     Classroom,
 )
+from base.models import(
+    Professor,
+    Student,
+)
+from access_management.utils import(
+    get_classrooms_for_professor,
+    get_classrooms_for_student,
+)
 from django.contrib import messages
 # Create your views here.
 @login_required
@@ -14,7 +22,15 @@ def list_all(request):
     is_professor = context.get("is_professor", False)
     is_student = context.get("is_student", False)
     is_admin = context.get("is_admin", False)
-    context['classrooms'] = Classroom.objects.filter(ready=True)
+    context['classrooms'] = []
+    if is_admin:
+        context['classrooms'] = Classroom.objects.filter(ready=True)
+    if is_professor:
+        professor = Professor.objects.get(user=request.user)
+        context['classrooms'] = get_classrooms_for_professor(professor)
+    if is_student:
+        student = Student.objects.get(user= request.user)
+        context['classrooms'] = get_classrooms_for_student(student)
     return render(request,'pages/classrooms.html',context)
 
 @login_required

@@ -13,5 +13,5 @@ urlpatterns = [
     path('add/',add_classroom, name='add'),
     path('delete/<classroom_id>',view=delete_classroom,name='delete'),
     path('edit/<classroom_id>',view=edit_classroom, name='edit'),
-    path('view/<classroom_id>',view=detail_view,name="detail")
+    path('view/<classroom_id>',view=detail_view,name="classroom_booking_detail")
 ]
