@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% load static %}
+{% load socialaccount %}
+
+{% block title %}
+Add PAG
+{% endblock title %}
+{% block head %}
+  <!-- CSS files -->
+  <!-- <link rel="stylesheet" href="{% static 'base/css/home.css' %}" /> -->
+{% endblock head %}
+{% block content %}
+<div class="h-full w-full max-w-[90vw] lg:container mx-auto pt-4 lg:pt-12 ">
+    <div class="grid place-items-center w-full">
+        <div class="form-background">
+            <h2>Add Professor Access Group</h2>
+            <form action="" method="post" class="form-ele text-zinc-50">
+                {% csrf_token %}
+                <fieldset>
+                    <label for="name">Name:</label>
+                    <input type="text" required class="form-input max-w-[200px]" name="name" placeholder="A123">
+                </fieldset>
+                <fieldset>
+                    <label for="dept_id">Professors:</label>
+                    <select name="professors" id="dept_id" class=" w-full form-select-2" required multiple>
+                        {% for prof in professors %}
+                        <option value="{{prof.id}}">{{prof.user.name}}</option>
+                        {% endfor %}
+                    </select>
+                </fieldset>
+
+                <fieldset>
+                    <label for="dept_id">Classroom:</label>
+                    <select name="classrooms" id="dept_id" class=" w-full form-select-2" required multiple>
+                        {% for room in classrooms %}
+                        <option  value="{{room.id}}">{{room.name}} | {{room.building.name}}</option>
+                        {% endfor %}
+                    </select>
+                </fieldset>
+                <input type="submit" value="Save" class="w-fit px-4 py-1 mx-auto font-ubuntu-mono uppercase text-xl font-bold bg-zinc-900 rounded" name="save">
+            </form>
+        </div>
+
+    </div>
+</div>
+<script src="{% static 'js/table.js' %}"></script>
+{% endblock %}

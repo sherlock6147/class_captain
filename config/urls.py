@@ -7,6 +7,7 @@ from django.views.generic import TemplateView
 
 urlpatterns = [
     path("classrooom/", include('classroom.urls'), name="classroom"),
+    path("access/", include('access_management.urls'), name="access"),
     path("", include('base.urls'), name="base"),
     # Django Admin, use {% url 'admin:index' %}
     path(settings.ADMIN_URL, admin.site.urls),

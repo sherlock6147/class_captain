@@ -110,18 +110,6 @@
                       class="block w-full border-b border-neutral-200 px-6 py-2"
                       >Add Classroom</a
                     >
-                    <a
-                      href="#!"
-                      aria-current="true"
-                      class="block w-full border-b border-neutral-200 px-6 py-2"
-                      >Laudantium maiores</a
-                    >
-                    <a
-                      href="#!"
-                      aria-current="true"
-                      class="block w-full px-6 py-2 "
-                      >Provident dolor</a
-                    >
                   </div>
                   <div>
                     <p
@@ -129,28 +117,28 @@
                       Access Management
                     </p>
                     <a
-                      href="#!"
+                      href="{% url 'access:list_PAG' %}"
                       aria-current="true"
                       class="block w-full border-b border-neutral-200 px-6 py-2"
-                      >Professor Access Management(PAM)</a
+                      >Professor Access Groups(PAG)</a
                     >
                     <a
-                      href="#!"
+                      href="{% url 'access:add_PAG' %}"
                       aria-current="true"
                       class="block w-full border-b border-neutral-200 px-6 py-2"
-                      >Add PAM</a
+                      >Add PAG</a
                     >
                     <a
-                      href="#!"
+                      href="{% url 'access:list_SAG' %}"
                       aria-current="true"
                       class="block w-full border-b border-neutral-200 px-6 py-2"
-                      >Student Access Management(SAM)</a
+                      >Student Access Groups(SAG)</a
                     >
                     <a
-                      href="#!"
+                      href="{% url 'access:add_SAG' %}"
                       aria-current="true"
                       class="block w-full px-6 py-2 "
-                      >Add SAM</a
+                      >Add SAG</a
                     >
                   </div>
                   <div>

@@ -49,5 +49,13 @@
 }
 
 .form-select{
-    @apply max-w-[200px] w-full drop-shadow-md bg-zinc-900 duration-300 hover:bg-zinc-900 focus:bg-zinc-900 outline-none rounded-md;
+    @apply max-w-[300px] w-full drop-shadow-md bg-zinc-900 duration-300 hover:bg-zinc-900 focus:bg-zinc-900 outline-none rounded-md pl-3 pr-3;
+}
+
+
+.form-select-2{
+    @apply max-w-[400px] w-full drop-shadow-md bg-zinc-900 duration-300 hover:bg-zinc-900 focus:bg-zinc-900 outline-none rounded-md pl-3 pr-3;
+}
+.form-select-2 > option{
+    @apply w-full py-2 px-1 rounded-sm
 }
