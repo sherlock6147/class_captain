@@ -70,17 +70,19 @@
                       Manage Bookings
                     </p>
                     <a
-                      href="#!"
+                      href="{% url 'booking:list_all' %}"
                       aria-current="true"
                       class="block w-full border-b border-neutral-200 px-6 py-2"
                       >All Bookings</a
                     >
+                    {% if not is_admin %}
                     <a
                       href="{% url 'base:profile' %}#booking_approvals"
                       aria-current="true"
                       class="block w-full border-b border-neutral-200 px-6 py-2"
                       >Booking approvals</a
                     >
+                    {% endif %}
                   </div>
                   {% endif %}
                   <div>
