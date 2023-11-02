@@ -1,6 +1,6 @@
 # Translations for the Class Captain project
 # Copyright (C) 2023 Md Manzer Alam and Team
-# Md Manzer Alam and Team <tooshort9541@gmail.comm>, 2023.
+# Md Manzer Alam and Team <tooshort9541@gmail.com>, 2023.
 #
 #, fuzzy
 msgid ""
