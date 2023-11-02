@@ -21,3 +21,9 @@ class Classroom(models.Model):
 
     def __str__(self) -> str:
         return self.building.name + '|' + self.name
+    
+    def to_json(self):
+        return {
+            'name':self.name,
+            'building':self.building.name
+        }

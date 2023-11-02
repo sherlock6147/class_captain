@@ -5,7 +5,8 @@
     "tailwindcss": "^3.3.3"
   },
   "scripts": {
-    "dev": "npx tailwindcss -i class_captain/static/css/tailwind_src.css -o class_captain/static/css/tailwind.css --watch"
+    "dev": "npx tailwindcss -i class_captain/static/css/tailwind_src.css -o class_captain/static/css/tailwind.css --watch",
+    "build": "npx tailwindcss -i class_captain/static/css/tailwind_src.css -o class_captain/static/css/tailwind.css --build"
   },
   "dependencies": {
     "@tailwindcss/forms": "^0.5.6",

@@ -3,6 +3,9 @@ from django.contrib.auth.decorators import login_required
 from base.views import prepare_context
 from classroom.models import Classroom
 from booking.models import Booking
+import json
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
 from base.models import(
     Professor,
     Student,
@@ -171,3 +174,27 @@ def approve_booking(request, booking_id):
     else:
         messages.error(request, 'THe booking conflicts with the timings')
     return redirect('base:profile')
+
+@csrf_exempt
+def device_view(request):
+    if request.method == "POST":
+        try:
+            data = json.loads(request.body.decode('utf-8'))
+            token = data.get('token', None)
+            classroom = Classroom.objects.get(code=token)
+            # Construct your response data as a Python dictionary
+            # classroom_json = json.dumps(classroom)
+            response_data = {
+                'message': 'Data received successfully',
+                'classroom': classroom.to_json()
+            }
+
+            # Convert the response data to JSON
+            response_json = json.dumps(response_data)
+
+            # Send the JSON response with the appropriate content type
+            return JsonResponse(response_data, status=200)
+
+        except json.JSONDecodeError:
+            return JsonResponse({'error': 'Invalid JSON data'}, status=400)
+    return JsonResponse({'error': 'Invalid request method'}, status=405)
