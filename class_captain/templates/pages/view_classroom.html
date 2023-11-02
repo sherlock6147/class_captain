@@ -1,0 +1,172 @@
+{% extends "base.html" %}
+
+{% load static %}
+{% load socialaccount %}
+
+{% block title %}
+View Classroom
+{% endblock title %}
+{% block head %}
+  <!-- CSS files -->
+  <!-- <link rel="stylesheet" href="{% static 'base/css/home.css' %}" /> -->
+{% endblock head %}
+{% block content %}
+<div class="max-w-[98vw] lg:container mx-auto">
+  <section class=" w-full h-full">
+      <div class="grid place-items-center pt-16 w-full">
+          <div class="rounded-md w-full max-w-5xl flex flex-col justify-center px-3">
+            <div class="w-full flex flex-col">
+              <div class="grid place-items-end py-4  rounded-t px-3 bg-center bg-cover bg-no-repeat origin-bottom w-full max-h-[200px] max-w-xl lg:max-w-screen-2xl mx-auto" style="background-image: linear-gradient(135deg, rgba(85, 74, 101, 0.604), #22050526), url('{% static 'images/base/128.webp' %}');">
+                <div class="flex flex-row w-full justify-end align-bottom text-zinc-200">
+                    <li class="list-none flex justify-end flex-col text-right font-raleway">
+                        <h2 class="text-xl lg:text-3xl text-transparent bg-gradient-to-r from-zinc-100 via-zinc-400 to-zinc-200 bg-clip-text font-bold uppercase h-fit tracking-wider">{{classroom.name}}</h2>
+                        <h3 class=" font-bold  h-fit">{{classroom.building}}</h3>
+                    </li>
+                </div>
+            </div>
+            <div class="flex flex-col gap-3 py-4  rounded-b px-3 bg-zinc-800 text-zinc-50 w-full max-h-[200px] max-w-xl lg:max-w-screen-2xl mx-auto  shadow-lg shadow-zinc-800 ">
+              <div class="flex list-none flex-col lg:flex-row justify-between w-full gap-4">
+                <li class="mr-auto my-auto">
+                  <h2 class="text-lg">Equipment Availability:</h2>
+                </li>
+                <div class="flex flex-row flex-wrap gap-2 text-sm">
+                  <li class="flex flex-row justify-center gap-2 bg-zinc-400/40 align-middle px-1 py-1 rounded">
+                    <h3 class="my-auto">Whiteboard</h3>
+                    <div>
+                      {% if classroom.whiteboard_available %}
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                  {% else %}
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M9.75 9.75l4.5 4.5m0-4.5l-4.5 4.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                  {% endif %}
+                  </li>
+                  <li class="flex flex-row justify-center gap-2 bg-zinc-400/40 align-middle px-1 py-1 rounded">
+                    <h3 class="my-auto">Projector</h3>
+                    <div>
+                      {% if classroom.projector_available %}
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                  {% else %}
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M9.75 9.75l4.5 4.5m0-4.5l-4.5 4.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                  {% endif %}
+                  </li>
+                  <li class="flex flex-row justify-center gap-2 bg-zinc-400/40 align-middle px-1 py-1 rounded">
+                    <h3 class="my-auto">Black Board</h3>
+                    <div>
+                      {% if classroom.blackboard_available %}
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                  {% else %}
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M9.75 9.75l4.5 4.5m0-4.5l-4.5 4.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                  {% endif %}
+                  </li>
+                </div>
+                
+
+              </div>
+            </div>
+            </div>
+
+          </div>
+      </div>
+  </section>
+  <section class="w-full mx-auto px-3 py-4">
+    <ul class="list-none my-3 flex flex-row justify-center w-full">
+      <li class="tag-3 text-zinc-50">
+        <a href="{% url 'booking:add' classroom.id %}">Book now</a></li>
+    </ul>
+    <ul class="list-none flex flex-col w-full">
+      <div data-te-datatable-init class="max-w-screen-xl w-full overflow-x-auto mx-auto table-fixed rounded">
+        <table class="">
+          <thead>
+            <tr>
+              
+              <th>Name</th>
+              <th>Date</th>
+              <th>Start Time</th>
+              <th>End Time</th>
+              <th>Frequency</th>
+              <th>Suggested By</th>
+              <th>
+                Booked for
+              </th>
+              <th>
+                Approved By
+              </th>
+              <th>
+                Booked By
+              </th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody class="">
+            {% for booking in bookings %}
+            <tr>
+              <td><div class="!font-bold">
+                {{booking.name}}
+              </div></td>
+              <td>{{booking.date}}</td>
+              <td>{{booking.start_time}}</td>
+              <td>{{booking.end_time}}</td>
+              <td>{{booking.repeatable}}</td>
+              <td>
+                {{booking.suggested_by.user.name}}
+              </td>
+              <td>
+                {{booking.booked_for.user.name}}
+              </td>
+
+              <td>
+                {{booking.approved_by.user.name}}
+              </td>
+              <td>
+                {{booking.booked_by.user.name}}
+              </td>
+              <td>
+                <div class="flex flex-row gap-3 justify-end">
+                  {% if is_admin or is_professor or is_student %}
+                  <a href="{% url 'booking:classroom_booking_detail' classroom.id %}" class="block" >
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+                      <path fill-rule="evenodd" d="M6.75 2.25A.75.75 0 017.5 3v1.5h9V3A.75.75 0 0118 3v1.5h.75a3 3 0 013 3v11.25a3 3 0 01-3 3H5.25a3 3 0 01-3-3V7.5a3 3 0 013-3H6V3a.75.75 0 01.75-.75zm13.5 9a1.5 1.5 0 00-1.5-1.5H5.25a1.5 1.5 0 00-1.5 1.5v7.5a1.5 1.5 0 001.5 1.5h13.5a1.5 1.5 0 001.5-1.5v-7.5z" clip-rule="evenodd" />
+                    </svg>
+                    
+                    
+                  </a>
+                  {% endif %}
+                  {% if is_admin%}
+                  <a href="{% url 'classroom:edit' classroom.id %}" class="block" >
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L6.832 19.82a4.5 4.5 0 01-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 011.13-1.897L16.863 4.487zm0 0L19.5 7.125" />
+                    </svg>
+                    
+                  </a>
+                  <a href="{% url 'classroom:delete' classroom.id %}" class="block" >
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
+                    </svg>
+                  </a>
+                  {% endif %}
+                </div>
+                
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      {% for booking in bookings %}
+
+      {% endfor %}
+    </ul>
+  </section>
+</div>
+{% endblock %}

@@ -8,6 +8,9 @@ from base.models import(
     SecretToken,
     Department,
 )
+from classroom.models import Classroom
+from booking.models import Booking
+
 from allauth.socialaccount.models import SocialAccount
 from django.contrib import messages
 import pendulum, datetime
@@ -26,7 +29,6 @@ def prepare_context(request):
         context['is_student'] = True
     if request.user.is_superuser or request.user.is_staff:
         context['is_admin'] = True
-    # print(context,request.user.is_superuser, request.user.is_staff)
     return context
 
 def home(request):
@@ -52,9 +54,14 @@ def profile(request):
         messages.info(request, 'Please complete account creation for furthur usage.')
     else:
         if is_student:
-            context['student'] = Student.objects.get(user=request.user)
+            context['student'] = student= Student.objects.get(user=request.user)
+            bookings = Booking.objects.filter(expiry__gte=pendulum.now(tz="Asia/Kolkata"),suggested_by=student,approved_by=None)
+            context['bookings'] = bookings
         if is_professor:
-            context['prof'] = Professor.objects.get(user=request.user)
+            prof = Professor.objects.get(user=request.user)
+            context['prof'] = prof
+            bookings = Booking.objects.filter(expiry__gte=pendulum.now(tz="Asia/Kolkata"),approval_for=prof,approved_by=None)
+            context['bookings'] = bookings
     return render(request, 'pages/profile.html', context)
 
 def view_secret_tokens(request):

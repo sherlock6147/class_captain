@@ -63,6 +63,7 @@
               data-te-dropdown-menu-ref>
               <div class="px-6 py-5 lg:px-8">
                 <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+                  {% if is_admin or is_professor or is_student  %}
                   <div>
                     <p
                       class="block w-full border-b border-neutral-200 px-6 py-2 font-black uppercase text-neutral-900">
@@ -72,15 +73,16 @@
                       href="#!"
                       aria-current="true"
                       class="block w-full border-b border-neutral-200 px-6 py-2"
-                      >Suggest Booking</a
+                      >All Bookings</a
                     >
                     <a
-                      href="#!"
+                      href="{% url 'base:profile' %}#booking_approvals"
                       aria-current="true"
                       class="block w-full border-b border-neutral-200 px-6 py-2"
-                      >Create Booking</a
+                      >Booking approvals</a
                     >
                   </div>
+                  {% endif %}
                   <div>
                     <p
                       class="block w-full border-b border-neutral-200 px-6 py-2 font-black uppercase text-neutral-900">

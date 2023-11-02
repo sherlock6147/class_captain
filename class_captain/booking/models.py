@@ -3,9 +3,11 @@ from base.models import (
     Student,
     Professor,
 )
+from classroom.models import Classroom
 import pendulum
 
 # Create your models here.
+
 class Booking(models.Model):
     name = models.CharField(max_length=200)
     start_time = models.TimeField()
@@ -18,8 +20,11 @@ class Booking(models.Model):
         ('Repeat Daily','Repeat Daily'),
     )
     repeatable = models.CharField(choices=REPEATABLE_CHOICES)
+    classroom = models.ForeignKey(Classroom,on_delete=models.DO_NOTHING,null=True)
     suggested_by = models.ForeignKey(Student,default=None,blank=True,null=True, on_delete=models.SET_NULL)
     approved_by = models.ForeignKey(Professor,default=None,blank=True,null=True, on_delete=models.SET_NULL,related_name="approved_bookings")
+    booked_for = models.ForeignKey(Professor,default=None,blank=True,null=True, on_delete=models.SET_NULL,related_name="booking_holders")
+    approval_for = models.ForeignKey(Professor,default=None,blank=True,null=True, on_delete=models.SET_NULL,related_name="booking_approver")
     booked_by = models.ForeignKey(Professor,default=None,blank=True,null=True, on_delete=models.SET_NULL,related_name="booked_bookings")
     expiry = models.DateTimeField()
 
