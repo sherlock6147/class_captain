@@ -271,6 +271,20 @@ def device_view(request):
                         break
                 row1 = f"{classroom.name}"
                 row2 = f"Available Till {start_time}"
+            len1 = len(row1)
+            len2 = len(row2)
+            if len2 > len1:
+                spaces = " "
+                while(len2 > len1):
+                    len2 -= 1
+                    spaces += " "
+                row1 = row1 + spaces
+            elif len1 > len2:
+                spaces = " "
+                while(len1 > len2):
+                    len1 -= 1
+                    spaces += " "
+                row2 = row2 + spaces
             response_data = {
                 'row1': row1,
                 'row2': row2
