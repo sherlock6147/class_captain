@@ -249,16 +249,31 @@ def device_view(request):
             token = data.get('token', None)
             classroom = Classroom.objects.get(code=token)
             status = "AVAILABLE"
-            message = str("ROOM: " + classroom.name)[:16]
             current = pendulum.now(tz="Asia/Kolkata")
             all_approved_bookings_for_classroom = Booking.objects.filter(classroom=classroom, expiry__gte=current,start_time__lte=current.time(),end_time__gte=current.time()).exclude(approved_by=None)
+            all_approved_bookings_for_classroom_after = Booking.objects.filter(classroom=classroom, expiry__gte=current,start_time__gte=current.time()).exclude(approved_by=None).order_by(start_time)
+            current_booking = None
             for booking in all_approved_bookings_for_classroom:
                 if booking.booked_dates.filter(date=current.date()).exists():
                     status = "BOOKED"
-                    message = str(booking.name)[:16]
+                    current_booking = booking
+                    break
+            row1 = ""
+            row2 = ""
+            if status == "BOOKED":
+                row1 = f"Booked By Prof. {current_booking.booked_for.user.name}"
+                row2 = f"{current_booking.name} From {current_booking.start_time.strftime('%H:%M')}"
+            else:
+                start_time = "19:00"
+                if all_approved_bookings_for_classroom_after.exists():
+                    for boooking in all_approved_bookings_for_classroom_after:
+                        start_time = boooking.start_time.strftime("%H:%M")
+                        break
+                row1 = f"{classroom.name}"
+                row2 = f"Available Till {start_time}"
             response_data = {
-                'status': status,
-                'message': message
+                'row1': row1,
+                'row2': row2
             }
 
             # Convert the response data to JSON
