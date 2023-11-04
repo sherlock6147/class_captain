@@ -1,6 +1,6 @@
 from django.contrib import admin
-from booking.models import Booking
+from booking.models import Booking,BookedDate
 # Register your models here.
 admin.site.register(
-    [Booking]
+    [BookedDate,Booking]
 )

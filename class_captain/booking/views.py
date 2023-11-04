@@ -21,6 +21,7 @@ repeat_choices = {
     'weekday_repeat':'Repeat only on Weekdays',
     'weekend_repeat':'Repeat only on Weekends',
     'daily_repeat':'Repeat Daily',
+    'weekly':'Weekly',
 }
 
 def check_conflicts(unsaved_booking):
@@ -122,6 +123,7 @@ def add_booking(request, classroom_id):
                         unsaved_booking.booked_for = b_prof
                         unsaved_booking.approval_for = a_prof
                     unsaved_booking.save()
+                    unsaved_booking.generate_booked_dates()
                     messages.success(request,'Succesfully booked classroom '+classroom.name)
                     return redirect(f'/booking/view/classroom/{classroom_id}')
                 else:
@@ -182,6 +184,8 @@ def device_view(request):
             data = json.loads(request.body.decode('utf-8'))
             token = data.get('token', None)
             classroom = Classroom.objects.get(code=token)
+            # status = "AVAILABLE"
+            # all_bookings_for_classroom = Booking.objects.filter(classroom=classroom, expiry__gte=pendulum.now(tz="Asia/Kolkata")).exclude(approved_by=None)
             # Construct your response data as a Python dictionary
             # classroom_json = json.dumps(classroom)
             response_data = {
