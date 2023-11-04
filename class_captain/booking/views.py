@@ -251,7 +251,7 @@ def device_view(request):
             status = "AVAILABLE"
             message = str("ROOM: " + classroom.name)[:16]
             current = pendulum.now(tz="Asia/Kolkata")
-            all_approved_bookings_for_classroom = Booking.objects.filter(classroom=classroom, expiry__gte=current,start_time__gte=current.time(),end_time__lte=current.time()).exclude(approved_by=None)
+            all_approved_bookings_for_classroom = Booking.objects.filter(classroom=classroom, expiry__gte=current,start_time__lte=current.time(),end_time__gte=current.time()).exclude(approved_by=None)
             for booking in all_approved_bookings_for_classroom:
                 if booking.booked_dates.filter(date=current.date).exists():
                     status = "BOOKED"
