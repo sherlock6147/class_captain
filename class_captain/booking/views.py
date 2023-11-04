@@ -251,7 +251,7 @@ def device_view(request):
             status = "AVAILABLE"
             current = pendulum.now(tz="Asia/Kolkata")
             all_approved_bookings_for_classroom = Booking.objects.filter(classroom=classroom, expiry__gte=current,start_time__lte=current.time(),end_time__gte=current.time()).exclude(approved_by=None)
-            all_approved_bookings_for_classroom_after = Booking.objects.filter(classroom=classroom, expiry__gte=current,start_time__gte=current.time()).exclude(approved_by=None).order_by(start_time)
+            all_approved_bookings_for_classroom_after = Booking.objects.filter(classroom=classroom, expiry__gte=current,start_time__gte=current.time()).exclude(approved_by=None).order_by("start_time")
             current_booking = None
             for booking in all_approved_bookings_for_classroom:
                 if booking.booked_dates.filter(date=current.date()).exists():
@@ -266,8 +266,8 @@ def device_view(request):
             else:
                 start_time = "19:00"
                 if all_approved_bookings_for_classroom_after.exists():
-                    for boooking in all_approved_bookings_for_classroom_after:
-                        start_time = boooking.start_time.strftime("%H:%M")
+                    for booking in all_approved_bookings_for_classroom_after:
+                        start_time = booking.start_time.strftime("%H:%M")
                         break
                 row1 = f"{classroom.name}"
                 row2 = f"Available Till {start_time}"
