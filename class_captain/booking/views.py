@@ -250,8 +250,8 @@ def device_view(request):
             classroom = Classroom.objects.get(code=token)
             status = "AVAILABLE"
             current = pendulum.now(tz="Asia/Kolkata")
-            all_approved_bookings_for_classroom = Booking.objects.filter(classroom=classroom, expiry__gte=current,start_time__lte=current.time(),end_time__gte=current.time()).exclude(approved_by=None)
-            all_approved_bookings_for_classroom_after = Booking.objects.filter(classroom=classroom, expiry__gte=current,start_time__gte=current.time()).exclude(approved_by=None).order_by("start_time")
+            all_approved_bookings_for_classroom = Booking.objects.filter(classroom=classroom, expiry__gte=current,start_time__lte=current.time(),end_time__gte=current.time(),booked_dates=current.date()).exclude(approved_by=None)
+            all_approved_bookings_for_classroom_after = Booking.objects.filter(classroom=classroom, expiry__gte=current,start_time__gte=current.time(),booked_dates=current.date()).exclude(approved_by=None).order_by("start_time")
             current_booking = None
             for booking in all_approved_bookings_for_classroom:
                 if booking.booked_dates.filter(date=current.date()).exists():
