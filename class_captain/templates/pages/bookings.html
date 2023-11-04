@@ -23,6 +23,7 @@ All Bookings
             <th>Date</th>
             <th>Start Time</th>
             <th>End Time</th>
+            <th>Expiry</th>
             <th>Frequency</th>
             <th>Suggested By</th>
             <th>
@@ -47,9 +48,10 @@ All Bookings
             <td><div class="!font-bold">
               {{booking.classroom.name}}
             </div></td>
-            <td>{{booking.date}}</td>
+            <td>{{booking.date|date:"l, F j, Y"}}</td>
             <td>{{booking.start_time}}</td>
             <td>{{booking.end_time}}</td>
+            <td>{{booking.expiry}}</td>
             <td>{{booking.repeatable}}</td>
             <td>
               {{booking.suggested_by.user.name}}

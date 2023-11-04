@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from base.views import prepare_context
 from classroom.models import Classroom
-from booking.models import Booking
+from booking.models import Booking,generate_unsaved_booked_dates
 import json
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
@@ -24,8 +24,36 @@ repeat_choices = {
     'weekly':'Weekly',
 }
 
-def check_conflicts(unsaved_booking):
-    return []
+def check_conflicts(unsaved_booking:Booking):
+    conflicts = []
+    bookings_for_classroom = Booking.objects.filter(classroom=unsaved_booking.classroom, expiry__gte=pendulum.now()).exclude(approved_by=None)
+    bookings_within_timeperiod:Booking = []
+    for booking in bookings_for_classroom:
+        if booking.start_time >= unsaved_booking.start_time and booking.start_time < unsaved_booking.end_time:
+            bookings_within_timeperiod.append(booking)
+        elif booking.end_time > unsaved_booking.start_time and booking.end_time <= unsaved_booking.end_time:
+            bookings_within_timeperiod.append(booking)
+    # print(bookings_within_timeperiod)
+    bookings_within_timeperiod_and_dates = []
+    booked_dates_for_unsaved_booking = generate_unsaved_booked_dates(unsaved_booking)
+    unsaved_booking_set = set(booked_dates_for_unsaved_booking)
+    # print("Booked Dates:\n")
+    # print(unsaved_booking_set)
+    for booking in bookings_within_timeperiod:
+        booked_dates = [booking.date for booking in booking.booked_dates.all()]
+        booked_dates_set = set(booked_dates)
+        # print(booking)
+        # print(booked_dates_set)
+        intersection_set = booked_dates_set & unsaved_booking_set
+        if intersection_set:
+            new_conflict = {
+                'booking':booking,
+                'conflicting_dates':list(intersection_set)
+            }
+            conflicts.append(new_conflict)
+            # print(intersection_set)
+    print(conflicts)
+    return conflicts
 
 @login_required
 def detail_view(request, classroom_id):
@@ -36,7 +64,29 @@ def detail_view(request, classroom_id):
     is_admin = context.get("is_admin", False)
     classroom = Classroom.objects.get(id=classroom_id)
     context['classroom'] = classroom
-    context['bookings'] = Booking.objects.filter(classroom = classroom, expiry__gte=pendulum.now(tz="Asia/Kolkata"))
+    bookings = []
+    if is_admin:
+        bookings = Booking.objects.all()
+    if is_professor or is_student:
+        valid_classrooms = get_classrooms_for_user(request)
+        for room in valid_classrooms:
+            room_bookings = Booking.objects.filter(classroom=room)
+            if room_bookings.exists():
+                for bk in room_bookings:
+                    bookings.append(bk)
+    new_bookings = []
+    if is_student:
+        student = Student.objects.get(user=request.user)
+        for bk in bookings:
+            new_booking = bk
+            if bk.suggested_by == student:
+                new_booking.can_delete = True
+            else:
+                new_booking.can_delete = False
+            new_bookings.append(new_booking)
+    else:
+        new_bookings = bookings
+    context['bookings'] = new_bookings
     return render(request, 'pages/view_classroom.html',context)
 
 def list_all(request):
@@ -128,6 +178,13 @@ def add_booking(request, classroom_id):
                     return redirect(f'/booking/view/classroom/{classroom_id}')
                 else:
                     messages.error(request, 'Conflicts with existing bookings')
+                    for conflict in conflicts:
+                        date_str = ""
+                        for d in conflict.get('conflicting_dates'):
+                            date_str = str(d)+','
+                        messages.info(request,
+                                      "Conflicts with Booking "+conflict['booking'].name+" on the following dates or more:\n"+date_str
+                                      )
     return render(request, 'pages/add_booking.html',context)
 
 def delete_booking(request, booking_id):
@@ -142,7 +199,7 @@ def delete_booking(request, booking_id):
         student = Student.objects.get(user=request.user)
         if booking.suggested_by == student:
             booking.delete()
-            messages.success(request,'Deleted booking by student')
+            messages.success(request,'Deleted booking suggested by student')
     if is_professor:
         # prof = Professor.objects.get(user=request.user)
         classrooms = get_classrooms_for_user(request)
@@ -174,7 +231,14 @@ def approve_booking(request, booking_id):
         booking.save()
         messages.success(request, 'Booking Approved!')
     else:
-        messages.error(request, 'THe booking conflicts with the timings')
+        messages.error(request, 'The booking conflicts with the timings')
+        for conflict in conflicts:
+                    date_str = ""
+                    for d in conflict.get('conflicting_dates'):
+                        date_str = str(d)+','
+                    messages.info(request,
+                                    "Conflicts with Booking "+conflict['booking'].name+" on the following dates or more:\n"+date_str
+                                    )
     return redirect('base:profile')
 
 @csrf_exempt
@@ -184,13 +248,17 @@ def device_view(request):
             data = json.loads(request.body.decode('utf-8'))
             token = data.get('token', None)
             classroom = Classroom.objects.get(code=token)
-            # status = "AVAILABLE"
-            # all_bookings_for_classroom = Booking.objects.filter(classroom=classroom, expiry__gte=pendulum.now(tz="Asia/Kolkata")).exclude(approved_by=None)
-            # Construct your response data as a Python dictionary
-            # classroom_json = json.dumps(classroom)
+            status = "AVAILABLE"
+            message = str("ROOM: " + classroom.name)[:16]
+            current = pendulum.now(tz="Asia/Kolkata")
+            all_approved_bookings_for_classroom = Booking.objects.filter(classroom=classroom, expiry__gte=current,start_time__gte=current.time(),end_time__lte=current.time()).exclude(approved_by=None)
+            for booking in all_approved_bookings_for_classroom:
+                if booking.booked_dates.filter(date=current.date).exists():
+                    status = "BOOKED"
+                    message = str(booking.name)[:16]
             response_data = {
-                'message': 'Data received successfully',
-                'classroom': classroom.to_json()
+                'status': status,
+                'message': message
             }
 
             # Convert the response data to JSON
