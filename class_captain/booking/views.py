@@ -228,6 +228,7 @@ def approve_booking(request, booking_id):
     print(conflicts)
     if not conflicts:
         booking.approved_by = prof
+        booking.generate_booked_dates()
         booking.save()
         messages.success(request, 'Booking Approved!')
     else:
