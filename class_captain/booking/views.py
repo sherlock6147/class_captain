@@ -262,7 +262,7 @@ def device_view(request):
             row2 = ""
             if status == "BOOKED":
                 row1 = f"Booked By Prof. {current_booking.booked_for.user.name}"
-                row2 = f"{current_booking.name} From {current_booking.start_time.strftime('%H:%M')}"
+                row2 = f"{current_booking.name} From {current_booking.start_time.strftime('%H:%M')} till {current_booking.end_time.strftime('%H:%M')}"
             else:
                 start_time = "19:00"
                 if all_approved_bookings_for_classroom_after.exists():
