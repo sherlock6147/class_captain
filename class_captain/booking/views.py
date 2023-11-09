@@ -70,7 +70,7 @@ def detail_view(request, classroom_id):
     if is_professor or is_student:
         valid_classrooms = get_classrooms_for_user(request)
         for room in valid_classrooms:
-            room_bookings = Booking.objects.filter(classroom=room)
+            room_bookings = Booking.objects.filter(classroom=room,expiry__gte=pendulum.now(tz="Asia/Kolkata"))
             if room_bookings.exists():
                 for bk in room_bookings:
                     bookings.append(bk)
