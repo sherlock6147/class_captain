@@ -23,16 +23,18 @@ def prepare_context(request):
     context['is_admin'] = False
     context['is_professor'] = False
     context['is_student'] = False
-    if Professor.objects.filter(user=request.user).count() > 0:
-        context['is_professor'] = True
-    if Student.objects.filter(user=request.user).count() > 0:
-        context['is_student'] = True
-    if request.user.is_superuser or request.user.is_staff:
-        context['is_admin'] = True
+    if request.user.is_authenticated:
+        if Professor.objects.filter(user=request.user).count() > 0:
+            context['is_professor'] = True
+        if Student.objects.filter(user=request.user).count() > 0:
+            context['is_student'] = True
+        if request.user.is_superuser or request.user.is_staff:
+            context['is_admin'] = True
     return context
 
 def home(request):
-    context  = {}
+    context = {}
+    context = prepare_context(request)
     return render(request, 'pages/home.html', context)
 
 @login_required
